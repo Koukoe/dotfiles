@@ -1,0 +1,21 @@
+patch:
+  # 这里的 rime_ice_suggestion 为雾凇方案的默认预设
+  __include: rime_ice_suggestion:/
+
+  schema_list:
+    - schema: rime_ice
+
+  menu:
+    page_size: 7
+
+  switcher/hotkeys:
+    - F4
+  switcher/fold_options: false
+
+  ascii_composer:
+    switch_key:
+      Shift_L: commit_code # 按左 shift 键，已输入字符上屏，同时切换为英文输入
+      Shift_R: inline_ascii # 按右 shift 键，切换为英文输入，同时保留已输入字符继续输入，回车上屏
+      Control_L: noop # noop 指无操作
+      Control_R: noop
+      Caps_Lock: clear # 按大小写切换键，清除已输入字符，同时切换为英文输入

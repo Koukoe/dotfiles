@@ -1,0 +1,162 @@
+{
+	"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+	"logo": {
+		"type": "auto",
+		"source": "",
+		"color": {
+			"1": "" // 嗯对先用默认的吧
+		},
+		"padding": {
+			"top": 1,
+			"left": 1,
+			"bottom": 0,
+			"right": 3
+		}
+	},
+	"display": {
+		"separator": "  "
+	},
+	"modules": [
+		{
+			"type": "os",
+			"key": "╭─ OS      ",
+			"keyColor": "yellow"
+		},
+		{
+			"type": "kernel",
+			"key": "├─ Kernel  ",
+			"keyColor": "yellow"
+		},
+		{
+			"type": "packages",
+			"key": "├─󰏖 Packages",
+			"keyColor": "yellow"
+		},
+		{
+			"type": "title",
+			"key": "├─ User    ",
+			"keyColor": "yellow",
+			"format": "{user-name}{at-symbol-colored}{host-name}"
+			// "color": {
+			// 	"at": "yellow"
+			// }
+		},
+		{
+			"type": "shell",
+			"key": "├─ Shell   ",
+			"keyColor": "yellow"
+		},
+		{
+			"type": "locale",
+			"key": "├─ Locale  ",
+			"keyColor": "yellow"
+		},
+		{
+			"condition": { // 从 "/usr/share/fastfetch/presets/examples/25.jsonc" 抄来的
+				"!system": "macOS"
+			},
+			"type": "disk",
+			"key": "╰─ OS Age  ",
+			"keyColor": "yellow",
+			"folders": "/", // Check root filesystem
+			"format": "{create-time:10} [{days} days]" // Show creation time and age in days
+		},
+		"break",
+		{
+			"type": "de",
+			"key": "╭─ DE      ",
+			"keyColor": "blue"
+		},
+		{
+			"type": "wm",
+			"key": "├─ WM      ",
+			"keyColor": "blue",
+			"detectPlugin": true
+		},
+		{
+			"type": "lm",
+			"key": "├─󰧨 DM      ",
+			"keyColor": "blue"
+		},
+		{
+			"type": "terminal",
+			"key": "╰─ Terminal",
+			"keyColor": "blue"
+		},
+		"break",
+		{
+			"type": "host",
+			"key": "╭─󰌢 PC      ",
+			"keyColor": "green"
+		},
+		{
+			"type": "cpu",
+			"key": "├─ CPU     ",
+			"keyColor": "green",
+			"temp": false
+		},
+		{
+			"type": "gpu",
+			"key": "├─󰾲 GPU     ",
+			"keyColor": "green"
+		},
+		{
+			"type": "disk",
+			"key": "├─ Disk    ",
+			"keyColor": "green",
+			"percent": {
+				"type": 9
+			}
+		},
+		{
+			"type": "memory",
+			"key": "├─ Memory  ",
+			"keyColor": "green",
+			"percent": {
+				"type": 9
+			}
+		},
+		{
+			"type": "swap",
+			"key": "├─󰓡 Swap    ",
+			"keyColor": "green",
+			"percent": {
+				"type": 9
+			}
+		},
+		{
+			"type": "battery",
+			"key": "├─ Battery ",
+			"keyColor": "green",
+			"format": "({capacity}) [{status}]",
+			"percent": {
+				"type": 9
+			}
+		},
+		{
+			"type": "uptime",
+			"key": "╰─󰅐 Uptime  ",
+			"keyColor": "green"
+		},
+		"break",
+		{
+			"type": "custom",
+			"format": "{#33}󰮯 {#31}󰊠 {#32}󰊠 {#34}󰊠 {#35}󰊠 {#36}󰊠 {#37}󰊠 {#30}󰊠 "
+		}
+		// {
+		// 	"type": "sound",
+		// 	"key": " SOUND",
+		// 	"keyColor": "cyan"
+		// },
+		// {
+		// 	"type": "player",
+		// 	"key": "├─󰥠 player",
+		// 	"keyColor": "cyan"
+		// },
+		// {
+		// 	"type": "media",
+		// 	"key": "╰─󰝚 media ",
+		// 	"keyColor": "cyan"
+		// }
+	]
+}
