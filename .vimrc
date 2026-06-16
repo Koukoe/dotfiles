@@ -16,13 +16,50 @@ set ignorecase
 " 搜索内容中包含大写字母时切换为大小写敏感搜索
 set smartcase
 
-" 把 hi Normal 的 ctermbg 改为 none 即可透明背景
+" 把 hi Normal 的 ctermbg 改为 NONE 即可透明背景
 colorscheme catppuccin
 
 " 允许使用鼠标
 set mouse=a
 " 允许在行首/尾按 h,←,backspace / l,→,space 将光标移动至上/下一行
 set whichwrap=h,l,<,>,[,],b,s
+
+" 使用系统剪贴板, 使用 gvim 包以获取带有 +clipboard 特性的 vim
+set clipboard=unnamedplus
+" 可视模式下使用 ctrl + c/x/v 进行复制剪粘贴, 先往左移是因为我的光标是竖线而不是方块
+vnoremap <C-c> h"+y
+vnoremap <C-x> h"+c
+vnoremap <C-v> h"+Pl
+" 插入模式下使用 ctrl + v 进行粘贴
+inoremap <C-v> <C-r><C-o>+
+
+" 非图形界面进入 vim 时禁用终端的 ctrl + s/z
+if !has('gui_running')
+  autocmd VimEnter * silent !stty -ixon susp undef
+  autocmd VimLeave * silent !stty ixon susp ^Z
+endif
+" ctrl + s 保存
+nnoremap <C-s> :update<CR>
+vnoremap <C-s> <Esc>:update<CR>gv
+inoremap <C-s> <Esc>:update<CR>gi
+" ctrl + z/y 撤销/重做
+nnoremap <C-z> u
+vnoremap <C-z> <Esc>u
+inoremap <C-z> <C-o>u
+nnoremap <C-y> <C-r>
+vnoremap <C-y> <Esc><C-r>
+inoremap <C-y> <C-o><C-r>
+
+" 持久化撤销
+set undofile
+silent !mkdir -p ~/.cache/vim/undo
+set undodir=~/.cache/vim/undo
+
+" 记录上次光标位置
+augroup resCur
+  autocmd!
+  autocmd BufReadPost * call setpos(".", getpos("'\""))
+augroup END
 
 " 自动切换输入法，archwiki上给的似乎语法有问题所以改了一点
 let fcitx5state = system("fcitx5-remote")
