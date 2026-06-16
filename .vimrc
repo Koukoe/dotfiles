@@ -16,8 +16,13 @@ set ignorecase
 " 搜索内容中包含大写字母时切换为大小写敏感搜索
 set smartcase
 
-" 为什么用了之后背景不透明了。。
-" colorscheme catppuccin 
+" 把 hi Normal 的 ctermbg 改为 none 即可透明背景
+colorscheme catppuccin
+
+" 允许使用鼠标
+set mouse=a
+" 允许在行首/尾按 h,←,backspace / l,→,space 将光标移动至上/下一行
+set whichwrap=h,l,<,>,[,],b,s
 
 " 自动切换输入法，archwiki上给的似乎语法有问题所以改了一点
 let fcitx5state = system("fcitx5-remote")
