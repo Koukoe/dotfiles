@@ -142,11 +142,6 @@ GLFW_IM_MODULE=ibus
 eval "$(starship init zsh)"
 export TERMINAL=kitty
 
-[ -s "${HOME}/.g/env" ] && \. "${HOME}/.g/env"  # g shell setup
-
-# 可选, 检查g别名是否被占用
-if [[ -n $(alias g 2>/dev/null) ]]; then
-    unalias g
-fi
-
+# dotfiles 管理
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
+alias lazydot='/usr/bin/lazygit --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
