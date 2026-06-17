@@ -21,15 +21,24 @@ colorscheme catppuccin
 
 " 允许使用鼠标
 set mouse=a
+
 " 允许在行首/尾按 h,←,backspace / l,→,space 将光标移动至上/下一行
 set whichwrap=h,l,<,>,[,],b,s
+" 根据模式切换光标样式
+autocmd VimEnter * silent !echo -ne "\e[2 q"
+let &t_SI = "\e[6 q"  " 进入插入模式变竖线
+let &t_SR = "\e[4 q"  " 进入替换模式变下划线
+let &t_EI = "\e[2 q"  " 退出插入模式变块状
+" 进出命令行切换光标
+autocmd CmdlineEnter * silent !echo -ne "\e[6 q"
+autocmd CmdlineLeave * silent !echo -ne "\e[2 q"
 
 " 使用系统剪贴板, 使用 gvim 包以获取带有 +clipboard 特性的 vim
 set clipboard=unnamedplus
-" 可视模式下使用 ctrl + c/x/v 进行复制剪粘贴, 先往左移是因为我的光标是竖线而不是方块
-vnoremap <C-c> h"+y
-vnoremap <C-x> h"+c
-vnoremap <C-v> h"+Pl
+" 可视模式下使用 ctrl + c/x/v 进行复制剪粘贴
+vnoremap <C-c> "+y
+vnoremap <C-x> "+c
+vnoremap <C-v> "+P
 " 插入模式下使用 ctrl + v 进行粘贴
 inoremap <C-v> <C-r><C-o>+
 
