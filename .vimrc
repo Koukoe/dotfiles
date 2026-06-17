@@ -1,3 +1,18 @@
+" 自动安装 vim-plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+
+Plug 'junegunn/vim-plug'
+Plug 'vim-airline/vim-airline'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+
+call plug#end()
+
 " 显示行号
 set number
 
@@ -16,8 +31,9 @@ set ignorecase
 " 搜索内容中包含大写字母时切换为大小写敏感搜索
 set smartcase
 
-" 把 hi Normal 的 ctermbg 改为 NONE 即可透明背景
-colorscheme catppuccin
+set termguicolors
+colorscheme catppuccin_mocha
+let g:airline_powerline_fonts = 1
 
 " 允许使用鼠标
 set mouse=a
