@@ -17,6 +17,13 @@ set ttimeoutlen=100
 
 " 显示行号
 set number
+" 高亮当前行
+set cursorline
+" 更智能的换行显示
+set linebreak
+
+" 显示标题
+set title
 
 " 语法高亮
 syntax on
