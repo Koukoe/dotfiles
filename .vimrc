@@ -13,6 +13,8 @@ Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 call plug#end()
 
+set ttimeoutlen=100
+
 " 显示行号
 set number
 
@@ -34,10 +36,21 @@ set smartcase
 set termguicolors
 colorscheme catppuccin_mocha
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " 允许使用鼠标
 set mouse=a
 
+" 持久化撤销
+set undofile
+silent !mkdir -p ~/.cache/vim/undo
+set undodir=~/.cache/vim/undo
+
+" 记录上次光标位置
+augroup resCur
+  autocmd!
+  autocmd BufReadPost * call setpos(".", getpos("'\""))
+augroup END
 " 允许在行首/尾按 h,←,backspace / l,→,space 将光标移动至上/下一行
 set whichwrap=h,l,<,>,[,],b,s
 " 根据模式切换光标样式
@@ -49,14 +62,21 @@ let &t_EI = "\e[2 q"  		" 退出插入模式变块状
 autocmd CmdlineEnter * silent !echo -ne "\e[6 q"
 autocmd CmdlineLeave * silent !echo -ne "\e[2 q"
 
-" 使用系统剪贴板, 使用 gvim 包以获取带有 +clipboard 特性的 vim
-set clipboard=unnamedplus
+" 剪贴板, 需使用 gvim 包以获取带有 +clipboard 特性的 vim
+" 使用 "+ 寄存器, 文本进入 CLIPBOARD 缓冲区(ctrl + c/v 的那个)
+" yank 操作的文本还会使用 "* 寄存器
+set clipboard=unnamedplus,unnamed
 " 可视模式下使用 ctrl + c/x/v 进行复制剪粘贴
 vnoremap <C-c> "+y
-vnoremap <C-x> "+c
+vnoremap <C-x> "+x
 vnoremap <C-v> "+P
 " 插入模式下使用 ctrl + v 进行粘贴
 inoremap <C-v> <C-r><C-o>+
+" d,D 使用 "* 寄存器, 文本进入 PRIMARY 缓冲区(选中复制, 中键粘贴的那个)
+nnoremap d "*d
+nnoremap D "*D
+vnoremap d "*d
+vnoremap D "*D
 
 " 非图形界面进入 vim 时禁用终端的 ctrl + s/z
 if !has('gui_running')
@@ -74,17 +94,6 @@ inoremap <C-z> <C-o>u
 nnoremap <C-y> <C-r>
 vnoremap <C-y> <Esc><C-r>
 inoremap <C-y> <C-o><C-r>
-
-" 持久化撤销
-set undofile
-silent !mkdir -p ~/.cache/vim/undo
-set undodir=~/.cache/vim/undo
-
-" 记录上次光标位置
-augroup resCur
-  autocmd!
-  autocmd BufReadPost * call setpos(".", getpos("'\""))
-augroup END
 
 " 自动切换输入法，archwiki上给的似乎语法有问题所以改了一点
 let fcitx5state = system("fcitx5-remote")
