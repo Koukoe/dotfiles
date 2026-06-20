@@ -21,6 +21,19 @@ set number
 set cursorline
 " 更智能的换行显示
 set linebreak
+" Alt + j/k 移动行
+nnoremap <A-j> :m .+1<CR>==
+vnoremap <A-j> :m '>+1<CR>gv=gv
+inoremap <A-j> <C-O>:m .+1<CR><C-O>==
+nnoremap <A-Down> :m .+1<CR>==
+vnoremap <A-Down> :m '>+1<CR>gv=gv
+inoremap <A-Down> <C-O>:m .+1<CR><C-O>==
+nnoremap <A-k> :m .-2<CR>==
+vnoremap <A-k> :m '<-2<CR>gv=gv
+inoremap <A-k> <C-O>:m .-2<CR><C-O>==
+nnoremap <A-Up> :m .-2<CR>==
+vnoremap <A-Up> :m '<-2<CR>gv=gv
+inoremap <A-Up> <C-O>:m .-2<CR><C-O>==
 
 " 显示标题
 set title
@@ -39,11 +52,14 @@ set incsearch
 set ignorecase
 " 搜索内容中包含大写字母时切换为大小写敏感搜索
 set smartcase
+" 双击 Esc 清除搜索
+nnoremap <Esc><Esc> :let @/=''<CR>
 
 set termguicolors
 colorscheme catppuccin_mocha
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#show_buffers = 0
 
 " 允许使用鼠标
 set mouse=a

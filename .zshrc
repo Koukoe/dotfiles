@@ -140,7 +140,6 @@ yc() {
 GLFW_IM_MODULE=ibus
 
 eval "$(starship init zsh)"
-export TERMINAL=kitty
 
 # dotfiles 管理
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
