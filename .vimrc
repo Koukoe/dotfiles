@@ -13,7 +13,8 @@ Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
 call plug#end()
 
-set ttimeoutlen=100
+set timeoutlen=500
+set ttimeoutlen=10
 
 " 显示行号
 set number
@@ -52,8 +53,8 @@ set incsearch
 set ignorecase
 " 搜索内容中包含大写字母时切换为大小写敏感搜索
 set smartcase
-" 双击 Esc 清除搜索
-nnoremap <Esc><Esc> :let @/=''<CR>
+" 按 Ctrl + L 清除搜索
+nnoremap <silent> <C-l> :let @/=''<CR>
 
 " https://sw.kovidgoyal.net/kitty/faq/#using-a-color-theme-with-a-background-color-does-not-work-well-in-vim
 " Mouse support
@@ -112,7 +113,9 @@ set termguicolors
 colorscheme catppuccin_mocha
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#show_buffers = 0
+" let g:airline#extensions#tabline#show_buffers = 0
+" 斜体注释
+highlight Comment cterm=italic gui=italic
 
 " 允许使用鼠标
 set mouse=a
@@ -169,3 +172,4 @@ let fcitx5state = system("fcitx5-remote")
 autocmd InsertLeave * silent let fcitx5state = system("fcitx5-remote")[0] | silent call system("fcitx5-remote -c")
 " 2 表示之前状态打开了输入法，则进入插入模式时启动输入法
 autocmd InsertEnter * silent if fcitx5state == '2' | call system("fcitx5-remote -o") | endif
+autocmd VimEnter * call job_start("fcitx5-remote -c")
