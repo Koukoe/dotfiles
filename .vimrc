@@ -10,10 +10,14 @@ call plug#begin()
 Plug 'junegunn/vim-plug'
 Plug 'vim-airline/vim-airline'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
+Plug 'mbbill/undotree'
 
 call plug#end()
 
-set timeoutlen=500
+" set timeoutlen=500
 set ttimeoutlen=10
 
 " 显示行号
@@ -40,7 +44,9 @@ inoremap <A-Up> <C-O>:m .-2<CR><C-O>==
 set title
 
 " 语法高亮
+filetype plugin on
 syntax on
+filetype indent on
 
 " 自动缩进
 set autoindent
@@ -116,14 +122,45 @@ let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#show_buffers = 0
 " 斜体注释
 highlight Comment cterm=italic gui=italic
+" Tab 缩进线
+set list lcs=tab:\│\ " 这里要有一个空格
+highlight SpecialKey guifg=#6c7086
 
-" 允许使用鼠标
-set mouse=a
+" Ctrl + / 切换注释
+nmap <silent> <C-/> <leader>c<Space>
+vmap <silent> <C-/> <leader>c<Space>gv
+imap <silent> <C-/> <C-O><leader>c<Space>
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
+
+" 和 vim 的快捷键会冲突所以还是习惯一下 vim-surround 吧
+" vnoremap ' <Esc>`>a'<Esc>`<i'<Esc>gvll
+" vnoremap " <Esc>`>a"<Esc>`<i"<Esc>gvll
+" vnoremap ` <Esc>`>a`<Esc>`<i`<Esc>gvll
+" vnoremap ( <Esc>`>a)<Esc>`<i(<Esc>gvll
+" vnoremap ) <Esc>`>a)<Esc>`<i(<Esc>gvll
+" vnoremap [ <Esc>`>a]<Esc>`<i[<Esc>gvll
+" vnoremap ] <Esc>`>a]<Esc>`<i[<Esc>gvll
+" vnoremap { <Esc>`>a}<Esc>`<i{<Esc>gvll
+" vnoremap } <Esc>`>a}<Esc>`<i{<Esc>gvll
+" vnoremap < <Esc>`>a><Esc>`<i<<Esc>gvll
 
 " 持久化撤销
 set undofile
 silent !mkdir -p ~/.cache/vim/undo
 set undodir=~/.cache/vim/undo
+" F5 切换 Undotree
+nnoremap <F5> :UndotreeToggle<CR>
 
 " 记录上次光标位置
 augroup resCur
@@ -132,6 +169,9 @@ augroup resCur
 augroup END
 " 允许在行首/尾按 h,←,backspace / l,→,space 将光标移动至上/下一行
 set whichwrap=h,l,<,>,[,],b,s
+" 光标和窗口距离
+set scrolloff=4
+set sidescrolloff=8
 
 " 剪贴板, 需使用 gvim 包以获取带有 +clipboard 特性的 vim
 " 使用 "+ 寄存器, 文本进入 CLIPBOARD 缓冲区(ctrl + c/v 的那个)
